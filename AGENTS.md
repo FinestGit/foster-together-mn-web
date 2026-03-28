@@ -4,6 +4,7 @@
 
 1. ADRs live in **foster-together-mn** (docs): [docs/adr/README.md](https://github.com/your-org/foster-together-mn/blob/main/docs/adr/README.md).
 2. **MVP 1:** directory UI only — [docs/MVP1_CHECKLIST.md](https://github.com/your-org/foster-together-mn/blob/main/docs/MVP1_CHECKLIST.md).
+3. **Lost context?** Cursor plans on this machine: **`~/.cursor/plans/`** — `ftmn_custom_platform_architecture_73303726.plan.md`, `mvp1_condensed_roadmap_78ea4e2f.plan.md`, `mvp1_story_breakdown_a8b54b6d.plan.md`. Index: **docs** [AGENTS.md](https://github.com/your-org/foster-together-mn/blob/main/AGENTS.md) § *Cursor plans* (adjust URL to your remote).
 
 ## Hard rules
 
