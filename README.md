@@ -1,30 +1,73 @@
-# Foster Together MN — Web
+# React + TypeScript + Vite
 
-**React + Vite + TypeScript** SPA for Foster Together MN staff: directory (MVP 1), then support, events, inventory flows. Architecture and ADRs live in the **foster-together-mn** docs repo — use a multi-root workspace or replace `your-org` in the links below.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Related repositories
+Currently, two official plugins are available:
 
-| Repo | Role |
-| ---- | ---- |
-| **foster-together-mn** (docs) | ADRs, diagram, [MVP1 checklist](https://github.com/your-org/foster-together-mn/blob/main/docs/MVP1_CHECKLIST.md) |
-| **foster-together-mn-api** | Spring Boot REST API + Cognito |
-| **this repo** | Static build → S3 + CloudFront |
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Stack
+## React Compiler
 
-- **React 18+**, **Vite**, **TypeScript**
-- **Tailwind and/or plain CSS** (no required component library)
-- **Auth:** Amazon Cognito (Hosted UI or PKCE) — tokens sent as `Authorization: Bearer` to the API
-- **Config:** `VITE_API_BASE_URL` → **`api.`** hostname in prod, local API URL in dev
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Local development (when scaffold exists)
+## Expanding the ESLint configuration
 
-```bash
-cp .env.example .env   # if present — set VITE_API_BASE_URL
-npm install
-npm run dev
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-Cognito **callback URLs** must include your dev origin (e.g. `http://localhost:5173`).
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-See [AGENTS.md](AGENTS.md) for AI assistant notes.
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

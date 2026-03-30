@@ -1,0 +1,48 @@
+.ft-button {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.25;
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: transform 120ms ease, filter 120ms ease, background 120ms ease;
+}
+
+.ft-button:active {
+    transform: translateY(1px);
+}
+
+.ft-button--primary {
+    color: #fff;
+    background: linear-gradient(135deg,
+            var(--color-primary) 0%,
+            var(--color-primary-container) 100%);
+}
+
+.ft-button--primary:hover {
+    filter: brightness(1.03);
+}
+
+.ft-button--secondary {
+    color: var(--color-on-surface);
+    background: var(--color-surface-highest);
+}
+
+.ft-button--secondary:hover {
+    filter: brightness(0.97);
+}
+
+.ft-button--tertiary {
+    padding: 0;
+    background: transparent;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-container);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+}
+
+.ft-button--tertiary:hover {
+    color: var(--color-primary-container);
+}

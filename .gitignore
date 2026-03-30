@@ -1,38 +1,24 @@
-# Dependencies
-node_modules/
-
-# Build
-dist/
-build/
-.vite/
-
-# Secrets / local env
-.env
-.env.*
-!.env.example
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Logs / debug
+# Logs
+logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-*.log
+pnpm-debug.log*
+lerna-debug.log*
 
-# Test / coverage
-coverage/
-.nyc_output/
+node_modules
+dist
+dist-ssr
+*.local
 
-# TypeScript
-*.tsbuildinfo
-
-# Optional tooling
-.eslintcache
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
