@@ -1,0 +1,54 @@
+.ft-app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.ft-app-shell__sidebar {
+    width: 12rem;
+    flex-shrink: 0;
+    padding: var(--space-4);
+    background: var(--color-surface-low);
+}
+
+.ft-app-shell__column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ft-app-shell__top {
+    flex-shrink: 0;
+    padding: var(--space-6);
+    min-height: 3.5rem;
+    background: var(--color-surface);
+}
+
+.ft-app-shell__content {
+    flex: 1;
+    overflow: auto;
+    padding: var(--space-6);
+}
+
+.ft-side-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.ft-side-nav__link {
+    display: block;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    color: var(--color-on-surface);
+    text-decoration: none;
+    font-family: var(--font-body);
+}
+
+.ft-side-nav__link.is-active {
+    background: var(--color-surface-highest);
+}

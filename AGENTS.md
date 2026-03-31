@@ -3,7 +3,7 @@
 ## Before changing code
 
 1. ADRs live in **foster-together-mn** (docs): [docs/adr/README.md](https://github.com/your-org/foster-together-mn/blob/main/docs/adr/README.md).
-2. **MVP 1:** directory UI only — [docs/MVP1_CHECKLIST.md](https://github.com/your-org/foster-together-mn/blob/main/docs/MVP1_CHECKLIST.md).
+2. **MVP 1:** directory UI only — [docs/MVP1_CHECKLIST.md](https://github.com/your-org/foster-together-mn/blob/main/docs/MVP1_CHECKLIST.md). **Current focus:** [docs/MVP1_STORIES.md](https://github.com/your-org/foster-together-mn/blob/main/docs/MVP1_STORIES.md) story **7.1b** — app shell (side nav + top bar) + TanStack Router; Home = playground (`/`); agencies at `/agencies`; households/people placeholders until later stories.
 3. **Lost context?** Cursor plans on this machine: **`~/.cursor/plans/`** — `ftmn_custom_platform_architecture_73303726.plan.md`, `mvp1_condensed_roadmap_78ea4e2f.plan.md`, `mvp1_story_breakdown_a8b54b6d.plan.md`, and `jotform_intake_integration_addendum_bea5f71c.plan.md` (deferred Micayla intake integration fields + mapping considerations). Index: **docs** [AGENTS.md](https://github.com/your-org/foster-together-mn/blob/main/AGENTS.md) § *Cursor plans* (adjust URL to your remote).
 4. **Design source of truth for web UI:** read [docs/mocks/DESIGN.md](https://github.com/your-org/foster-together-mn/blob/main/docs/mocks/DESIGN.md) and review images in [docs/mocks/](https://github.com/your-org/foster-together-mn/tree/main/docs/mocks) before implementing screens/tokens.
 
