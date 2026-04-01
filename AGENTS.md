@@ -28,4 +28,9 @@ The owner wants **decisions explained**, not blind checklists. When you propose 
 
 ## Human implementer
 
-The owner often implements themselves; prefer guidance and review unless they ask for full patches.
+The owner implements application code in this repo themselves.
+
+- **Default:** Give **guidance only** (steps, rationale, snippets to copy, review). **Do not** use agent tools to edit/create/delete files here unless the owner **explicitly** asks to implement or apply changes (e.g. “apply this,” “patch the repo,” “make the edits”).
+- **Explicit implementation:** Full patches only when the owner clearly requests them.
+
+A Cursor project rule (`.cursor/rules/`) repeats this so new sessions still see it.

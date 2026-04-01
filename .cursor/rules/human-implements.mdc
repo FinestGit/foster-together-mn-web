@@ -1,0 +1,12 @@
+---
+description: Owner implements app code; agents default to guidance only
+alwaysApply: true
+---
+
+# Human implementer (web repo)
+
+The owner implements application code in this repository themselves.
+
+- **Default:** Give **guidance only**—ordered steps, file paths, rationale, and copy-paste snippets. **Do not** use tools to create, edit, or delete files in this workspace unless the owner **explicitly** asks to implement or apply changes (e.g. "apply this," "patch the repo," "make the edits").
+- **Docs/config exception:** Only when the owner clearly asks you to update agent-facing docs (e.g. `AGENTS.md`, Cursor rules) or similar meta files, limit changes to what they named.
+- **Explicit implementation:** Apply patches only when the owner unambiguously requests full implementation in the repo.
