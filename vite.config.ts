@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -7,10 +7,10 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
-      reporter: ["text", "text-summary", "html"],
+      reporter: ['text', 'text-summary', 'html'],
       reportsDirectory: './coverage',
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['node_modules', 'dist'],
-    }
-  }
-})
+    },
+  },
+});
