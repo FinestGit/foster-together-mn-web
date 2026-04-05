@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { SectionCard } from "../ui/SectionCard";
-import { type Agency, listAgencies } from "../../api/agencies";
+import { listAgencies } from "../../api/agencies";
 import { Eye, Pencil, Trash2 } from "lucide-react";
+import { ApiHttpError } from "../../api/http";
+import type { Agency } from "../../api/schemas/agency";
 
 import './AgenciesSection.css'
-import { ApiHttpError } from "../../api/http";
 
 export function AgenciesSection() {
     const [agencies, setAgencies] = useState<Agency[]>([])
