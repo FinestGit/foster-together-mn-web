@@ -23,6 +23,7 @@ export type RequestJsonOptions = {
     body?: unknown
     signal?: AbortSignal
     timeoutMs?: number
+    headers?: Record<string, string>
 }
 
 function messageFromErrorBody(body: unknown, fallback: string): string {
@@ -48,6 +49,7 @@ export async function requestJson<T>(
 
     const headers: Record<string, string> = {
         Accept: "application/json",
+        ...options.headers,
     }
     let bodyInit: BodyInit | undefined
     if (body !== undefined) {

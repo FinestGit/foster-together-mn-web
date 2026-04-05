@@ -14,7 +14,7 @@ export function AgenciesSection() {
 
     function userFacingHttpMessage(e: ApiHttpError): string {
         switch (e.status) {
-            case  401:
+            case 401:
                 return "you must be signed in to load agencies."
             case 403:
                 return "you don't have access to this."
