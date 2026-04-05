@@ -1,4 +1,4 @@
-import { apiClient } from "./client"
+import { requestJson } from "./http"
 
 export type Agency = {
     id: number
@@ -10,6 +10,6 @@ export type Agency = {
 const AGENCIES_PATH = '/api/v1/agencies'
 
 export async function listAgencies() {
-    const response = await apiClient.get<Agency[]>(AGENCIES_PATH)
-    return response.data
+    const data = await requestJson<Agency[]>(AGENCIES_PATH)
+    return data ?? []
 }

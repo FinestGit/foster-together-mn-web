@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
+import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import "./AppShell.css";
 import { Button } from "../ui/Button";
 import { UserRound } from "lucide-react";

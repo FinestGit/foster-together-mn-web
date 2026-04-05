@@ -2,14 +2,25 @@ import { useEffect, useState } from "react";
 import { SectionCard } from "../ui/SectionCard";
 import { type Agency, listAgencies } from "../../api/agencies";
 import { Eye, Pencil, Trash2 } from "lucide-react";
-import axios from "axios";
 
 import './AgenciesSection.css'
+import { ApiHttpError } from "../../api/http";
 
 export function AgenciesSection() {
     const [agencies, setAgencies] = useState<Agency[]>([])
     const [error, setError] = useState<string | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
+
+    function userFacingHttpMessage(e: ApiHttpError): string {
+        switch (e.status) {
+            case  401:
+                return "you must be signed in to load agencies."
+            case 403:
+                return "you don't have access to this."
+            default:
+                return "something went wrong. Try again later."
+        }
+    }
 
     useEffect(() => {
         let cancelled = false
@@ -21,7 +32,7 @@ export function AgenciesSection() {
             })
             .catch((e) => {
                 if (cancelled) return
-                setError(axios.isAxiosError(e) ? e.message : 'failed')
+                setError(e instanceof ApiHttpError ? userFacingHttpMessage(e) : 'failed')
             })
             .finally(() => {
                 setLoading(false)
