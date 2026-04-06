@@ -1,4 +1,5 @@
 import './App.css';
+import { Alert } from './components/ui/Alert';
 import { Button } from './components/ui/Button';
 import { SectionCard } from './components/ui/SectionCard';
 
@@ -27,6 +28,27 @@ function App() {
           Aenean tincidunt, erat vitae vulputate mollis, dolor erat aliquet
           massa, ut molestie dui metus eget massa.
         </p>
+      </SectionCard>
+      <SectionCard title="Alerts">
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-3)',
+            width: '100%',
+          }}
+        >
+          <Alert variant="error">
+            Something went wrong saving this agency. Try again.
+          </Alert>
+          <Alert variant="warning">
+            This name matches an existing agency. Continue only if intended.
+          </Alert>
+          <Alert variant="info">
+            Agencies appear in the directory after they are created.
+          </Alert>
+          <Alert variant="success">Agency was created successfully.</Alert>
+        </div>
       </SectionCard>
     </main>
   );

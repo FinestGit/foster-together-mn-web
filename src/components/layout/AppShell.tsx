@@ -1,7 +1,7 @@
 import { Link, Outlet, useRouterState } from '@tanstack/react-router';
 import './AppShell.css';
-import { Button } from '../ui/Button';
 import { UserRound } from 'lucide-react';
+import { AgencyHeader } from './AgencyHeader';
 
 export function AppShell() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -17,18 +17,7 @@ export function AppShell() {
             Foster Together MN
           </Link>
           {inAgencies && (
-            <div className="ft-top-nav__context">
-              <Link
-                to="/agencies"
-                className={
-                  'ft-top-nav__directory' +
-                  (onAgenciesDirectory ? ' is-active' : '')
-                }
-              >
-                Directory
-              </Link>
-              <Button variant="primary">Add Agency</Button>
-            </div>
+            <AgencyHeader onAgenciesDirectory={onAgenciesDirectory} />
           )}
           <div className="ft-top-nav__end">
             <button

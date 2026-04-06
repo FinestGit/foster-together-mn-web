@@ -93,41 +93,6 @@
   border-radius: var(--radius-md);
 }
 
-.ft-top-nav__context {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--space-4);
-  flex: 1;
-  justify-content: center;
-  min-width: 0;
-}
-
-.ft-top-nav__directory {
-  font-family: var(--font-body);
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-body);
-  color: var(--color-primary);
-  text-decoration: none;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-}
-
-.ft-top-nav__directory.is-active {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.25em;
-}
-
-.ft-top-nav__directory:hover {
-  background: var(--color-surface-low);
-}
-
-.ft-top-nav__directory:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
-
 .ft-top-nav__end {
   flex-shrink: 0;
   display: flex;

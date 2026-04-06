@@ -7,6 +7,7 @@ import App from './App';
 import { AgenciesPage } from './pages/AgenciesPage';
 import { AppShell } from './components/layout/AppShell';
 import { AgencyDetailPage } from './pages/AgencyDetailPage';
+import { AgencyCreatePage } from './pages/AgencyCreatePage';
 
 const rootRoute = createRootRoute({
   component: () => <AppShell />,
@@ -30,10 +31,17 @@ const agencyDetailRoute = createRoute({
   component: AgencyDetailPage,
 });
 
+const agencyCreateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/agencies/new',
+  component: AgencyCreatePage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   agenciesRoute,
   agencyDetailRoute,
+  agencyCreateRoute,
 ]);
 
 export const router = createRouter({ routeTree });
