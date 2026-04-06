@@ -6,6 +6,7 @@ import {
 import App from './App';
 import { AgenciesPage } from './pages/AgenciesPage';
 import { AppShell } from './components/layout/AppShell';
+import { AgencyDetailPage } from './pages/AgencyDetailPage';
 
 const rootRoute = createRootRoute({
   component: () => <AppShell />,
@@ -23,7 +24,17 @@ const agenciesRoute = createRoute({
   component: AgenciesPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, agenciesRoute]);
+const agencyDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/agencies/$agencyId',
+  component: AgencyDetailPage,
+});
+
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  agenciesRoute,
+  agencyDetailRoute,
+]);
 
 export const router = createRouter({ routeTree });
 

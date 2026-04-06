@@ -6,6 +6,8 @@ import { ApiHttpError } from '../../api/http';
 import type { Agency } from '../../api/schemas/agency';
 
 import './AgenciesSection.css';
+import { LoadingSpinner } from '../ui/LoadingSpinner';
+import { Link } from '@tanstack/react-router';
 
 const ACCESS_TOKEN = '';
 
@@ -20,13 +22,15 @@ export function AgenciesSection() {
         return 'you must be signed in to load agencies.';
       case 403:
         return "you don't have access to this.";
+      case 404:
+        return 'no agencies found.';
       default:
         return 'something went wrong. Try again later.';
     }
   }
 
   useEffect(() => {
-    const cancelled = false;
+    let cancelled = false;
     listAgencies({ accessToken: ACCESS_TOKEN })
       .then((rows) => {
         if (cancelled) return;
@@ -42,11 +46,11 @@ export function AgenciesSection() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
 
-  const onView = (id: number) => {
-    console.log(id);
-  };
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const onEdit = (id: number) => {
     console.log(id);
@@ -59,7 +63,7 @@ export function AgenciesSection() {
   return (
     <SectionCard title="Agencies">
       <div className="ft-text-body">
-        {loading && <p>Loading agencies...</p>}
+        {loading && <LoadingSpinner loadingLabel="Loading agencies..." />}
 
         {error && (
           <p role="alert" style={{ color: 'var(--color-primary)' }}>
@@ -73,23 +77,23 @@ export function AgenciesSection() {
           <ul className="ft-agency-list">
             {agencies.map((a) => (
               <li key={a.id} className="ft-agency-row">
-                <button
-                  type="button"
+                <Link
+                  to="/agencies/$agencyId"
+                  params={{ agencyId: String(a.id) }}
                   className="ft-agency-row__name"
-                  onClick={() => onView(a.id)}
                 >
                   {a.name}
-                </button>
+                </Link>
 
                 <div className="ft-agency-row__actions">
-                  <button
-                    type="button"
+                  <Link
+                    to="/agencies/$agencyId"
+                    params={{ agencyId: String(a.id) }}
                     className="ft-icon-btn"
                     aria-label="View agency"
-                    onClick={() => onView(a.id)}
                   >
                     <Eye size={18} strokeWidth={2} />
-                  </button>
+                  </Link>
                   <button
                     type="button"
                     className="ft-icon-btn"

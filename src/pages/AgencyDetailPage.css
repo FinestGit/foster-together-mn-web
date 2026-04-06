@@ -1,0 +1,17 @@
+.ft-agency-detail__back {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-family: var(--font-body);
+}
+
+.ft-agency-detail__back:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+}
+
+.ft-agency-detail__back:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+}

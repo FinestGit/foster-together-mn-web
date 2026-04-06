@@ -44,6 +44,7 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: none;
   color: var(--color-on-surface);
 }
 
