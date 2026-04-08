@@ -8,6 +8,7 @@ import { Alert } from '../components/ui/Alert';
 import { createAgency } from '../api/agencies';
 import { ApiHttpError } from '../api/http';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
+import { agencyUserFacingHttpMessage } from '../utils/userFacingHttpMessage';
 
 const ACCESS_TOKEN = '';
 
@@ -19,22 +20,7 @@ export function AgencyCreatePage() {
 
   const navigate = useNavigate();
 
-  function userFacingHttpMessage(e: ApiHttpError) {
-    switch (e.status) {
-      case 400:
-        return e.message;
-      case 401:
-        return 'you must be signed in to create an agency.';
-      case 403:
-        return "you don't have access to this.";
-      case 404:
-        return 'could not create agency.';
-      default:
-        return 'something went wrong. Try again later.';
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     setFieldError(null);
     setError(null);
@@ -57,7 +43,11 @@ export function AgencyCreatePage() {
         params: { agencyId: String(created.id) },
       });
     } catch (e) {
-      setError(e instanceof ApiHttpError ? userFacingHttpMessage(e) : 'failed');
+      setError(
+        e instanceof ApiHttpError
+          ? agencyUserFacingHttpMessage('create', e)
+          : 'failed'
+      );
     } finally {
       setSubmitting(false);
     }

@@ -1,0 +1,57 @@
+.ft-agency-edit__back {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-family: var(--font-body);
+}
+
+.ft-agency-edit__back:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.25em;
+}
+
+.ft-agency-edit__back:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+}
+
+.ft-agency-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 24rem;
+    margin-top: var(--space-4);
+}
+
+.ft-agency-edit-form__label {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    color: var(--color-on-surface);
+}
+
+.ft-agency-edit-form__input {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-outline, transparent);
+    background: var(--color-surface-container-low, var(--color-surface-highest));
+    color: var(--color-on-surface);
+}
+
+.ft-agency-edit-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+}
+
+.ft-agency-edit-form__actions .ft-button--secondary {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}

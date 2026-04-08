@@ -8,6 +8,7 @@ import type { Agency } from '../../api/schemas/agency';
 import './AgenciesSection.css';
 import { LoadingSpinner } from '../ui/LoadingSpinner';
 import { Link } from '@tanstack/react-router';
+import { agencyUserFacingHttpMessage } from '../../utils/userFacingHttpMessage';
 
 const ACCESS_TOKEN = '';
 
@@ -15,19 +16,6 @@ export function AgenciesSection() {
   const [agencies, setAgencies] = useState<Agency[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
-  function userFacingHttpMessage(e: ApiHttpError): string {
-    switch (e.status) {
-      case 401:
-        return 'you must be signed in to load agencies.';
-      case 403:
-        return "you don't have access to this.";
-      case 404:
-        return 'no agencies found.';
-      default:
-        return 'something went wrong. Try again later.';
-    }
-  }
 
   useEffect(() => {
     let cancelled = false;
@@ -40,7 +28,9 @@ export function AgenciesSection() {
       .catch((e) => {
         if (cancelled) return;
         setError(
-          e instanceof ApiHttpError ? userFacingHttpMessage(e) : 'failed'
+          e instanceof ApiHttpError
+            ? agencyUserFacingHttpMessage('load', e)
+            : 'failed'
         );
       })
       .finally(() => {
@@ -51,10 +41,6 @@ export function AgenciesSection() {
       cancelled = true;
     };
   }, []);
-
-  const onEdit = (id: number) => {
-    console.log(id);
-  };
 
   const onDelete = (id: number) => {
     console.log(id);
@@ -94,14 +80,14 @@ export function AgenciesSection() {
                   >
                     <Eye size={18} strokeWidth={2} />
                   </Link>
-                  <button
-                    type="button"
+                  <Link
+                    to="/agencies/$agencyId/edit"
+                    params={{ agencyId: String(a.id) }}
                     className="ft-icon-btn"
                     aria-label="Edit agency"
-                    onClick={() => onEdit(a.id)}
                   >
                     <Pencil size={18} strokeWidth={2} />
-                  </button>
+                  </Link>
                   <button
                     type="button"
                     className="ft-icon-btn"
