@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import './App.css';
 import { Alert } from './components/ui/Alert';
 import { Button } from './components/ui/Button';
 import { SectionCard } from './components/ui/SectionCard';
+import { Modal } from './components/ui/Modal';
 
 function App() {
+  const [open, setOpen] = useState<boolean>(false);
   return (
     <main style={{ padding: 'var(--space-6)', maxWidth: '48rem' }}>
       <h1 style={{ marginTop: 0 }}>Design Playground</h1>
@@ -49,6 +52,18 @@ function App() {
           </Alert>
           <Alert variant="success">Agency was created successfully.</Alert>
         </div>
+      </SectionCard>
+      <SectionCard title="Modal">
+        <Button variant="primary" onClick={() => setOpen(true)}>
+          Open Modal
+        </Button>
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          title="Test Modal"
+          description="This is sample copy."
+          footer={<Button onClick={() => setOpen(false)}>Close</Button>}
+        />
       </SectionCard>
     </main>
   );

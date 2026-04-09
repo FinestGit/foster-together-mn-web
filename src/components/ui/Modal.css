@@ -1,0 +1,46 @@
+.ft-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    background: rgba(35, 26, 15, 0.45);
+    box-sizing: border-box;
+}
+
+.ft-modal-panel {
+    width: 100%;
+    max-width: 28rem;
+    max-height: min(90vh, 32rem);
+    overflow: auto;
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    color: var(--color-on-surface);
+    box-shadow: var(--shadow-ambient);
+    box-sizing: border-box;
+}
+
+.ft-modal-title {
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--font-size-display-sm);
+    line-height: var(--line-height-display-sm);
+    font-weight: var(--font-weight-display);
+}
+
+.ft-modal-body {
+    margin: 0 0 var(--space-5);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+}
+
+.ft-modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-3);
+}

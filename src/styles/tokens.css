@@ -6,6 +6,9 @@
   --color-on-surface: #231a0f;
   --color-primary: #75421f;
   --color-primary-container: #915934;
+  --color-danger: #8b2e1f;
+  --color-danger-container: #a94436;
+  --color-on-danger: #fffaf8;
   --color-outline-ghost: rgba(215, 194, 184, 0.15);
 
   /* Typography */

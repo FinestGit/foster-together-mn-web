@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { SectionCard } from '../ui/SectionCard';
-import { listAgencies } from '../../api/agencies';
+import { deleteAgency, listAgencies } from '../../api/agencies';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import { ApiHttpError } from '../../api/http';
 import type { Agency } from '../../api/schemas/agency';
@@ -9,6 +9,9 @@ import './AgenciesSection.css';
 import { LoadingSpinner } from '../ui/LoadingSpinner';
 import { Link } from '@tanstack/react-router';
 import { agencyUserFacingHttpMessage } from '../../utils/userFacingHttpMessage';
+import { Alert } from '../ui/Alert';
+import { Modal } from '../ui/Modal';
+import { Button } from '../ui/Button';
 
 const ACCESS_TOKEN = '';
 
@@ -16,9 +19,13 @@ export function AgenciesSection() {
   const [agencies, setAgencies] = useState<Agency[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [deleteTarget, setDeleteTarget] = useState<Agency | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   useEffect(() => {
     let cancelled = false;
+    setLoading(true);
     listAgencies({ accessToken: ACCESS_TOKEN })
       .then((rows) => {
         if (cancelled) return;
@@ -42,20 +49,32 @@ export function AgenciesSection() {
     };
   }, []);
 
-  const onDelete = (id: number) => {
-    console.log(id);
-  };
+  async function onDelete(id: number) {
+    setDeleting(true);
+    await deleteAgency(id, { accessToken: ACCESS_TOKEN })
+      .then(() => {
+        setAgencies((prev) => prev.filter((x) => x.id !== id));
+        setDeleteTarget(null);
+        setDeleteError(null);
+      })
+      .catch((e) => {
+        setDeleteError(
+          e instanceof ApiHttpError
+            ? agencyUserFacingHttpMessage('delete', e)
+            : 'failed'
+        );
+      })
+      .finally(() => {
+        setDeleting(false);
+      });
+  }
 
   return (
     <SectionCard title="Agencies">
       <div className="ft-text-body">
         {loading && <LoadingSpinner loadingLabel="Loading agencies..." />}
 
-        {error && (
-          <p role="alert" style={{ color: 'var(--color-primary)' }}>
-            {error}
-          </p>
-        )}
+        {error && <Alert variant="error">{error}</Alert>}
 
         {!loading && !error && agencies.length === 0 && <p>No agencies yet.</p>}
 
@@ -92,7 +111,10 @@ export function AgenciesSection() {
                     type="button"
                     className="ft-icon-btn"
                     aria-label="Delete agency"
-                    onClick={() => onDelete(a.id)}
+                    onClick={() => {
+                      setDeleteError(null);
+                      setDeleteTarget(a);
+                    }}
                   >
                     <Trash2 size={18} strokeWidth={2} />
                   </button>
@@ -101,6 +123,45 @@ export function AgenciesSection() {
             ))}
           </ul>
         )}
+        <Modal
+          open={deleteTarget != null}
+          onClose={() => {
+            if (!deleting) {
+              setDeleteTarget(null);
+              setDeleteError(null);
+            }
+          }}
+          title="Delete agency?"
+          description={`Do you want to delete ${deleteTarget?.name}?`}
+          footer={
+            <>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setDeleteTarget(null);
+                  setDeleteError(null);
+                }}
+                disabled={deleting}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="danger"
+                onClick={() => {
+                  const id = deleteTarget?.id;
+                  if (id === undefined) return;
+                  void onDelete(id);
+                }}
+                disabled={deleting}
+              >
+                Delete
+              </Button>
+            </>
+          }
+          children={
+            <>{deleteError && <Alert variant="error">{deleteError}</Alert>}</>
+          }
+        />
       </div>
     </SectionCard>
   );

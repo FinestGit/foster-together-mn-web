@@ -2,12 +2,14 @@ import { Link, useNavigate, useParams } from '@tanstack/react-router';
 import './AgencyDetailPage.css';
 import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
-import { getAgency } from '../api/agencies';
+import { deleteAgency, getAgency } from '../api/agencies';
 import type { Agency } from '../api/schemas/agency';
 import { ApiHttpError } from '../api/http';
 import { Button } from '../components/ui/Button';
 import { parseAgencyId } from '../utils/parseAgencyId';
 import { agencyUserFacingHttpMessage } from '../utils/userFacingHttpMessage';
+import { Alert } from '../components/ui/Alert';
+import { Modal } from '../components/ui/Modal';
 
 const ACCESS_TOKEN = '';
 
@@ -16,6 +18,9 @@ export function AgencyDetailPage() {
   const [agency, setAgency] = useState<Agency | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -54,6 +59,26 @@ export function AgencyDetailPage() {
     };
   }, [agencyId]);
 
+  async function onDelete(id: number) {
+    setDeleting(true);
+    await deleteAgency(id, { accessToken: ACCESS_TOKEN })
+      .then(() => {
+        setDeleteError(null);
+        setDeleteModalOpen(false);
+        navigate({ to: '/agencies' });
+      })
+      .catch((e) => {
+        setDeleteError(
+          e instanceof ApiHttpError
+            ? agencyUserFacingHttpMessage('delete', e)
+            : 'failed'
+        );
+      })
+      .finally(() => {
+        setDeleting(false);
+      });
+  }
+
   return (
     <main style={{ padding: 'var(--space-6)', maxWidth: '48rem' }}>
       <p className="ft-text-body">
@@ -63,11 +88,7 @@ export function AgencyDetailPage() {
       </p>
       {loading && <LoadingSpinner loadingLabel="Loading agency..." />}
 
-      {error && (
-        <p role="alert" style={{ color: 'var(--color-primary)' }}>
-          {error}
-        </p>
-      )}
+      {error && <Alert variant="error">{error}</Alert>}
 
       {!loading && !error && agency === null && (
         <p>Agency could not be loaded...</p>
@@ -90,7 +111,45 @@ export function AgencyDetailPage() {
             >
               Edit
             </Button>
+            <Button variant="danger" onClick={() => setDeleteModalOpen(true)}>
+              Delete
+            </Button>
           </div>
+          <Modal
+            open={deleteModalOpen}
+            onClose={() => {
+              if (!deleting) {
+                setDeleteModalOpen(false);
+                setDeleteError(null);
+              }
+            }}
+            title={'Delete agency?'}
+            description={`Do you want to delete ${agency.name}?`}
+            footer={
+              <>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    setDeleteModalOpen(false);
+                    setDeleteError(null);
+                  }}
+                  disabled={deleting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => void onDelete(agency.id)}
+                  disabled={deleting}
+                >
+                  Delete
+                </Button>
+              </>
+            }
+            children={
+              <>{deleteError && <Alert variant="error">{deleteError}</Alert>}</>
+            }
+          />
         </>
       )}
     </main>
